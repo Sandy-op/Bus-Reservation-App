@@ -7,6 +7,7 @@ import org.jsp.reservationapi.dto.EmailConfiguration;
 import org.jsp.reservationapi.dto.ResponseStructure;
 import org.jsp.reservationapi.dto.UserRequest;
 import org.jsp.reservationapi.dto.UserResponse;
+import org.jsp.reservationapi.exception.AdminNotFoundException;
 import org.jsp.reservationapi.exception.UserNotFoundException;
 import org.jsp.reservationapi.model.User;
 import org.jsp.reservationapi.util.AccountStatus;
@@ -62,6 +63,20 @@ public class UserService {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(structure);
 		}
 		throw new UserNotFoundException("Cannot Update User as Id is Invalid");
+	}
+
+	public ResponseEntity<ResponseStructure<UserResponse>> updatePassword(String email, String password) {
+		Optional<User> recUser = userDao.findByEmail(email);
+		ResponseStructure<UserResponse> structure = new ResponseStructure<>();
+		if (recUser.isPresent()) {
+			User dbUser = recUser.get();
+			dbUser.setPassword(password);
+			structure.setData(mapToUserResponse(userDao.saveUser(dbUser)));
+			structure.setMessage("Password Changed");
+			structure.setStatusCode(HttpStatus.ACCEPTED.value());
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(structure);
+		}
+		throw new UserNotFoundException("Cannot Update Password as Id is Invalid");
 	}
 
 	public ResponseEntity<ResponseStructure<UserResponse>> findById(int id) {
@@ -130,6 +145,29 @@ public class UserService {
 		return UserResponse.builder().name(user.getName()).email(user.getEmail()).id(user.getId())
 				.gender(user.getGender()).phone(user.getPhone()).age(user.getAge()).password(user.getPassword())
 				.build();
+	}
+
+	public String forgotPassword(String email, HttpServletRequest request) {
+		Optional<User> recUser = userDao.findByEmail(email);
+		if (recUser.isEmpty())
+			throw new UserNotFoundException("Invalid Email Id");
+		User user = recUser.get();
+		String resetPasswordLink = linkGeneratorService.getResetPasswordLink(user, request);
+		emailConfiguration.setToAddress(email);
+		emailConfiguration.setText("Please click on the following link to reset your password " + resetPasswordLink);
+		emailConfiguration.setSubject("RESET YOUR PASSWORD");
+		mailService.sendMail(emailConfiguration);
+		return "reset password link has been sent to entered mail Id";
+	}
+
+	public UserResponse verifyLink(String token) {
+		Optional<User> recUser = userDao.findByToken(token);
+		if (recUser.isEmpty())
+			throw new AdminNotFoundException("Link has been expired or it is Invalid");
+		User dbUser = recUser.get();
+		dbUser.setToken(null);
+		userDao.saveUser(dbUser);
+		return mapToUserResponse(dbUser);
 	}
 
 	public String activate(String token) {

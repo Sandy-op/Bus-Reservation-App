@@ -54,8 +54,12 @@ public class BusService {
 		dbBus.setName(busRequest.getTo());
 		dbBus.setNumberOfSeats(busRequest.getNumberOfSeats());
 		dbBus.setName(busRequest.getName());
-		dbBus.setCostPerSeat(busRequest.getCostPerSeat()); 
+		dbBus.setCostPerSeat(busRequest.getCostPerSeat());
 		dbBus.setAvailableSeats(busRequest.getNumberOfSeats());
+		dbBus.setReportingTime(busRequest.getReportingTime());
+		dbBus.setDepartureTime(busRequest.getDepartureTime());
+		dbBus.setBoardingPoint(busRequest.getBoardingPoint());
+		dbBus.setDroppingPoint(busRequest.getDroppingPoint());
 		dbBus = busDao.saveBus(dbBus);
 		structure.setData(dbBus);
 		structure.setMessage("Bus updated");
@@ -103,10 +107,26 @@ public class BusService {
 		structure.setStatusCode(HttpStatus.OK.value());
 		return ResponseEntity.status(HttpStatus.OK).body(structure);
 	}
+	
+	public ResponseEntity<ResponseStructure<String>> delete(int id) {
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		Optional<Bus> dbBus = busDao.findById(id);
+		if (dbBus.isPresent()) {
+			busDao.delete(id);
+			structure.setData("Bus Found");
+			structure.setMessage("Bus deleted");
+			structure.setStatusCode(HttpStatus.OK.value());
+			return ResponseEntity.status(HttpStatus.OK).body(structure);
+		}
+		throw new BusNotFoundException("Cannot delete Bus as Id is Invalid");
+	}
 
 	public Bus mapToBus(BusRequest busRequest) {
 		return Bus.builder().name(busRequest.getName()).busNumber(busRequest.getBusNumber())
 				.dateOfDeparture(busRequest.getDateOfDeparture()).from(busRequest.getFrom()).to(busRequest.getTo())
-				.numberOfSeats(busRequest.getNumberOfSeats()).costPerSeat(busRequest.getCostPerSeat()).build();
+				.numberOfSeats(busRequest.getNumberOfSeats()).availableSeats(busRequest.getAvailableSeats())
+				.costPerSeat(busRequest.getCostPerSeat()).reportingTime(busRequest.getReportingTime())
+				.departureTime(busRequest.getDepartureTime()).boardingPoint(busRequest.getBoardingPoint())
+				.droppingPoint(busRequest.getDroppingPoint()).build();
 	}
 }

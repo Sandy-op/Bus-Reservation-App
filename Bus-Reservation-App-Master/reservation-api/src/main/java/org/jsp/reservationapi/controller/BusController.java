@@ -10,6 +10,7 @@ import org.jsp.reservationapi.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/api/buses")
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class BusController {
 	@Autowired
 	private BusService busService;
@@ -56,5 +57,10 @@ public class BusController {
 	@GetMapping("/find/{admin_id}")
 	public ResponseEntity<ResponseStructure<List<Bus>>> findByAdminId(@PathVariable int admin_id) {
 		return busService.findByAdminId(admin_id);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<ResponseStructure<String>> delete(@PathVariable int id) {
+		return busService.delete(id);
 	}
 }

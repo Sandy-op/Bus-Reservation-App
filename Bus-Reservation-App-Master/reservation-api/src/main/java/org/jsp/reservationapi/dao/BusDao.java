@@ -33,4 +33,9 @@ public class BusDao {
 	public List<Bus> findBusesByAdminId(int admin_id) {
 		return busRepository.findByAdminId(admin_id);
 	}
+	
+	public void delete(int id) {
+		busRepository.deleteById(id);
+	}
+
 }

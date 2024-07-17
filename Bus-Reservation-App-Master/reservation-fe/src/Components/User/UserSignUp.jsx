@@ -1,29 +1,33 @@
 import React, { useState } from "react";
-import "../Styles/AdminSignup.css";
+import "../../Styles/AdminSignup.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function AdminSignUp() {
+export default function UserSignUp() {
+  const nav = useNavigate();
   let [name, setName] = useState("");
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
   let [phone, setPhone] = useState("");
-  let [gst_number, setGstNo] = useState("");
-  let [travels_name, setTravel] = useState("");
+  let [email, setEmail] = useState("");
+  let [gender, setGender] = useState("");
+  let [age, setAge] = useState("");
+  let [password, setPassword] = useState("");
+  let [loading, setLoading] = useState(false);
 
-  const addAdmin = async (e) => {
+  const addUser = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     let data = JSON.stringify({
       name,
-      email,
-      password,
       phone,
-      gst_number,
-      travels_name,
+      email,
+      age,
+      gender,
+      password,
     });
 
     try {
-      const response = await axios.post(`http://localhost:8080/api/admins`, data, {
+      const response = await axios.post(`http://localhost:8080/api/users`, data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -31,7 +35,8 @@ export default function AdminSignUp() {
 
       if (response.status === 200 || response.status === 201) {
         console.log(response);
-        alert("New Admin Has Been Added Successfully! Please activate your admin account by clicking on link sent to your email");
+        alert("New User Has Been Added Successfully! Please activate your user account by clicking on link sent to your email");
+        nav("/userlogin")
         return; // Prevent further execution after success
       }
       console.error("Unexpected response status:", response.status);
@@ -39,12 +44,19 @@ export default function AdminSignUp() {
     } catch (err) {
       console.error(err);
       alert("An error occurred. Please check your details and try again.");
+    }finally{
+      setLoading(false);
     }
   };
 
   return (
     <div className="AdminSignUp">
-      <form onSubmit={addAdmin} action="">
+      {loading ? (
+        <div className="spinner-border text-primary" role="status"> {/* Changed here */}
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : (
+      <form onSubmit={addUser} action="">
         <label htmlFor="">Name</label>
         <input
           type="text"
@@ -70,25 +82,25 @@ export default function AdminSignUp() {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
-        <label htmlFor="">gst_no</label>
+        <label htmlFor="">Gender</label>
         <input
           type="text"
           required
-          placeholder="Enter the gst_no "
-          value={gst_number}
-          onChange={(e) => setGstNo(e.target.value)}
+          placeholder="Enter the gender "
+          value={gender}
+          onChange={(e) => setGender(e.target.value)}
         />
-        <label htmlFor="">Travels_Name</label>
+        <label htmlFor="">age</label>
         <input
-          type="text"
+          type="number"
           required
-          placeholder="Enter the Travels_Name"
-          value={travels_name}
-          onChange={(e) => setTravel(e.target.value)}
+          placeholder="Enter your age"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
         />
         <label htmlFor="">Password</label>
         <input
-          type="password" // Change to password for security
+          type="password"
           required
           placeholder="Enter the Password"
           value={password}
@@ -96,7 +108,7 @@ export default function AdminSignUp() {
         />
         <button className="btn btn-danger">Register</button>
       </form>
+      )}
     </div>
   );
 }
-

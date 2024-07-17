@@ -1,6 +1,6 @@
 import React from 'react'
 import Dropdown1 from './DropDowns'
-import '../Styles/AdminNavbar.css'
+import '../../Styles/AdminNavbar.css'
 export default function AdminNavbar() {
   return (
     <div className='AdminNavbar'>

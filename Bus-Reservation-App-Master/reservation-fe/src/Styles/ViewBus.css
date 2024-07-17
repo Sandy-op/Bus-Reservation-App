@@ -1,0 +1,78 @@
+.ViewBus {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background: #f4f4f4;
+}
+
+.bus_details {
+    background: linear-gradient(135deg, #84fab0, #8fd3f4);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 300px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bus_details:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.bus_details h4 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #333;
+}
+
+.bus_details i {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.bus_details p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.bus_details span {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-warning {
+    background-color: #ff9800;
+}
+
+.btn-warning:hover {
+    background-color: #e68900;
+}
+
+.btn-danger {
+    background-color: #f44336;
+}
+
+.btn-danger:hover {
+    background-color: #d32f2f;
+}

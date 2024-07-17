@@ -1,6 +1,7 @@
 package org.jsp.reservationapi.dto;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import lombok.Data;
 
@@ -14,4 +15,9 @@ public class BusRequest {
 	private String to;
 	private int numberOfSeats;
 	private double costPerSeat;
+	private int availableSeats;
+	private LocalTime reportingTime;
+    private LocalTime departureTime; 
+    private String boardingPoint; 
+    private String droppingPoint; 
 }

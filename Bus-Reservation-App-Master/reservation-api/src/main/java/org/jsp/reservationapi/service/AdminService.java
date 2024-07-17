@@ -9,6 +9,7 @@ import org.jsp.reservationapi.dto.AdminResponse;
 import org.jsp.reservationapi.dto.EmailConfiguration;
 import org.jsp.reservationapi.dto.ResponseStructure;
 import org.jsp.reservationapi.exception.AdminNotFoundException;
+import org.jsp.reservationapi.exception.UserNotFoundException;
 import org.jsp.reservationapi.model.Admin;
 import org.jsp.reservationapi.util.AccountStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,20 @@ public class AdminService {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(structure);
 		}
 		throw new AdminNotFoundException("Cannot Update Admin as Id is Invalid");
+	}
+
+	public ResponseEntity<ResponseStructure<AdminResponse>> updatePassword(String email, String password) {
+		Optional<Admin> recAdmin = adminDao.findByEmail(email);
+		ResponseStructure<AdminResponse> structure = new ResponseStructure<>();
+		if (recAdmin.isPresent()) {
+			Admin dbAdmin = recAdmin.get();
+			dbAdmin.setPassword(password);
+			structure.setData(mapToAdminResponse(adminDao.saveAdmin(dbAdmin)));
+			structure.setMessage("Password Changed");
+			structure.setStatusCode(HttpStatus.ACCEPTED.value());
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(structure);
+		}
+		throw new UserNotFoundException("Cannot Update Password as Id is Invalid");
 	}
 
 	public ResponseEntity<ResponseStructure<AdminResponse>> findById(int id) {

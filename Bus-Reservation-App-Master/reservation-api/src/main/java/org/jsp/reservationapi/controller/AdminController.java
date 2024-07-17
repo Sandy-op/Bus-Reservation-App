@@ -1,6 +1,7 @@
 package org.jsp.reservationapi.controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.jsp.reservationapi.dto.AdminRequest;
 
@@ -77,6 +78,13 @@ public class AdminController {
 	public String forgotPassword(@RequestParam String email, HttpServletRequest request) {
 		return adminService.forgotPassword(email, request);
 	}
+	
+	@PutMapping("/reset-password/{email}")
+	public ResponseEntity<ResponseStructure<AdminResponse>> updatePassword(@PathVariable String email,
+			@RequestBody Map<String, String> passwordMap) {
+		String password = passwordMap.get("password");
+		return adminService.updatePassword(email, password);
+	}
 
 	@GetMapping("/verify-link")
 	public void verifyResetPasswordLink(@RequestParam String token, HttpServletRequest request,
@@ -88,7 +96,7 @@ public class AdminController {
 				HttpSession session = request.getSession();
 				session.setAttribute("admin", adminResponse);
 						response.addCookie(new Cookie("admin", adminResponse.getEmail()));
-				response.sendRedirect("http://localhost:3000/reset-password");
+				response.sendRedirect("http://localhost:3000/admin-reset-password");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

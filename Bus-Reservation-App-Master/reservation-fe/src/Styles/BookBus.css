@@ -1,0 +1,67 @@
+.display_book {
+  max-width: 400px; /* Reduced max-width */
+  margin: 40px auto;
+  padding: 15px; /* Reduced padding */
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Reduced box shadow */
+  background-color: #fdfdfd;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh; /* Adjusted min-height */
+}
+
+.display_book h1 {
+  font-size: 1.8em; /* Adjusted font size */
+  color: #333;
+  margin-bottom: 15px; /* Reduced margin */
+}
+
+.display_book b {
+  font-size: 1em; /* Adjusted font size */
+  color: #555;
+}
+
+.display_book span, .display_book i {
+  font-size: 0.9em; /* Adjusted font size */
+  color: #777;
+}
+
+.display_book select, .display_book button {
+  margin-top: 8px; /* Reduced margin */
+  padding: 8px; /* Reduced padding */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9em; /* Adjusted font size */
+  color: #555;
+  width: 100%;
+  max-width: 180px; /* Reduced max-width */
+}
+
+.display_book select:hover, .display_book button:hover {
+  border-color: #aaa;
+}
+
+.display_book button {
+  background-color: #ff4d4d;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.display_book button:hover {
+  background-color: #e03e3e;
+}
+
+.display_book big {
+  font-size: 1em; /* Adjusted font size */
+}
+
+.display_book h3 {
+  margin-top: 15px; /* Reduced margin */
+  font-size: 1.2em; /* Adjusted font size */
+  color: #333;
+}

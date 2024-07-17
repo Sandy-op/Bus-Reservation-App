@@ -1,6 +1,7 @@
 package org.jsp.reservationapi.dto;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,4 +27,8 @@ public class TicketResponse {
 	private long phone;
 	private int age;
 	private String gender;
+	private LocalTime reportingTime;
+	private LocalTime departureTime;
+	private String boardingPoint;
+	private String droppingPoint;
 }

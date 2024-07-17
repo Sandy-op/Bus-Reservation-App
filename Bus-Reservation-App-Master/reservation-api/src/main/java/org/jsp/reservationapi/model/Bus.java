@@ -1,10 +1,12 @@
 package org.jsp.reservationapi.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,10 +45,19 @@ public class Bus {
 	private int availableSeats;
 	@Column(nullable = false, name = "cost_per_seat")
 	private double costPerSeat;
+	@Column(nullable = false, name = "reporting_time")
+	private LocalTime reportingTime;
+	@Column(nullable = false, name = "departure_time")
+	private LocalTime departureTime;
+	@Column(nullable = false, name = "boarding_point")
+	private String boardingPoint;
+	@Column(nullable = false, name = "dropping_point")
+	private String droppingPoint; 
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "admin_id")
 	private Admin admin;
-	@OneToMany(mappedBy = "bus")
+	@OneToMany(mappedBy = "bus", cascade = CascadeType.REMOVE)
 	private List<Ticket> bookedTickets;
+
 }
