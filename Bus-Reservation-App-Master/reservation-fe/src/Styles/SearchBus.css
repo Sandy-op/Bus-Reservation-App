@@ -1,92 +1,99 @@
 /* SearchBus.css */
 
 .SearchBus {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .SearchBus form {
-    display: flex;
-    flex-direction: row; /* Landscape layout for form */
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-  }
-  
-  .SearchBus form input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .SearchBus form button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .SearchBus form button:hover {
-    background-color: #0056b3;
-  }
-  
-  .bus_list {
-    display: flex;
-    flex-direction: row; /* Landscape layout for bus list */
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 10px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    width: 80%;
-  }
-  
-  .bus_list h4 {
-    margin: 5px 0;
-    color: #333;
-  }
-  
-  .bus_list i {
-    font-style: normal;
-    color: #555;
-  }
-  
-  .bus_list p, .bus_list span {
-    margin: 5px 0;
-    color: #666;
-  }
-  
-  .bus_list button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #dc3545;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  
-  .bus_list button:hover {
-    background-color: #c82333;
-  }
-  
-  h1 {
-    margin: 15px;
-    color: #333;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.SearchBus form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  position: relative;
+}
+
+.SearchBus form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 200px;
+}
+
+.SearchBus form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.SearchBus form button:hover {
+  background-color: #0056b3;
+}
+
+.bus_list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  width: 80%;
+}
+
+.bus_list h4 {
+  margin: 5px 0;
+  color: #333;
+}
+
+.bus_list i {
+  font-style: normal;
+  color: #555;
+}
+
+.bus_list p,
+.bus_list span {
+  margin: 5px 0;
+  color: #666;
+}
+
+.bus_list button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #dc3545;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.bus_list button:hover {
+  background-color: #c82333;
+}
+
+h1 {
+  margin: 15px;
+  color: #333;
+}
+
+.input-container {
+  position: relative;
+  width: 200px;
+}
